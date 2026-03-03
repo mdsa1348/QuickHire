@@ -1,5 +1,6 @@
 'use client';
 
+import Link from 'next/link';
 import { useState, useEffect } from 'react';
 import JobCard from '@/components/JobCard';
 import { Job } from '@/types';
