@@ -2,23 +2,25 @@ import Link from 'next/link';
 
 const Navbar = () => {
   return (
-    <nav className="border-b border-border py-4 px-6 md:px-12 flex items-center justify-between bg-white sticky top-0 z-50">
-      <div className="flex items-center gap-12">
+    <nav className="border-b border-border py-5 px-6 md:px-32 flex items-center justify-between bg-[#F8F8FD]">
+      <div className="flex items-center gap-10">
         <Link href="/" className="flex items-center gap-2">
-          <div className="w-8 h-8 bg-primary rounded-full flex items-center justify-center text-white font-bold">Q</div>
-          <span className="text-2xl font-bold text-text-dark">QuickHire</span>
+          <img src="/images/logo.png" alt="QuickHire" className="h-8 w-auto" />
+          <span className="text-2xl font-bold text-[#25324B] tracking-tight">QuickHire</span>
         </Link>
         
-        <div className="hidden md:flex items-center gap-8 text-text-gray font-medium">
+        <div className="hidden md:flex items-center gap-6 text-[#515B6F] font-medium">
           <Link href="/" className="hover:text-primary transition-colors">Find Jobs</Link>
           <Link href="#" className="hover:text-primary transition-colors">Browse Companies</Link>
-          <Link href="/admin" className="hover:text-primary transition-colors">Admin Panel</Link>
         </div>
       </div>
 
-      <div className="flex items-center gap-4">
-        <button className="text-primary font-bold px-4 py-2">Login</button>
-        <button className="bg-primary text-white font-bold px-6 py-2 rounded-sm">Sign Up</button>
+      <div className="flex items-center gap-8">
+        <Link href="#" className="text-primary font-bold hover:opacity-80">Login</Link>
+        <div className="w-[1px] h-6 bg-border hidden md:block"></div>
+        <Link href="#" className="bg-primary text-white font-bold px-7 py-3 rounded-none transition-all hover:opacity-90">
+          Sign Up
+        </Link>
       </div>
     </nav>
   );

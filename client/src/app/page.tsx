@@ -10,7 +10,6 @@ export default function Home() {
   const [loading, setLoading] = useState(true);
   const [search, setSearch] = useState('');
   const [location, setLocation] = useState('');
-  const [category, setCategory] = useState('All');
 
   useEffect(() => {
     fetchJobs();
@@ -20,7 +19,7 @@ export default function Home() {
     try {
       const res = await fetch('http://localhost:5000/api/jobs');
       const data = await res.json();
-      setJobs(data);
+      setJobs(Array.isArray(data) ? data : []);
     } catch (err) {
       console.error('Failed to fetch jobs', err);
     } finally {
@@ -32,167 +31,222 @@ export default function Home() {
     const matchesSearch = job.title.toLowerCase().includes(search.toLowerCase()) || 
                           job.company.toLowerCase().includes(search.toLowerCase());
     const matchesLocation = job.location.toLowerCase().includes(location.toLowerCase());
-    const matchesCategory = category === 'All' || job.category === category;
-    
-    return matchesSearch && matchesLocation && matchesCategory;
+    return matchesSearch && matchesLocation;
   });
 
-  const categories = ['All', 'Design', 'Engineering', 'Product', 'Sales', 'Marketing'];
+  const categories = [
+    { title: 'Design', count: 235, icon: '🎨' },
+    { title: 'Sales', count: 756, icon: '📈' },
+    { title: 'Marketing', count: 140, icon: '📢', active: true },
+    { title: 'Finance', count: 325, icon: '💰' },
+    { title: 'Technology', count: 436, icon: '💻' },
+    { title: 'Engineering', count: 542, icon: '🛠️' },
+    { title: 'Business', count: 211, icon: '💼' },
+    { title: 'Human Resource', count: 346, icon: '👥' },
+  ];
+
+  const companies = ['Vodafone', 'Intel', 'Tesla', 'AMD', 'Talkit'];
 
   return (
     <div className="bg-white min-h-screen">
       {/* Hero Section */}
-      <section className="bg-primary-light pt-16 pb-24 px-6 md:px-12 relative overflow-hidden">
-        <div className="max-w-6xl mx-auto flex flex-col md:flex-row items-center gap-12">
+      <section className="bg-[#F8F8FD] py-16 md:py-24 px-6 md:px-32 relative overflow-hidden">
+        <div className="max-w-[1400px] mx-auto flex flex-col md:flex-row items-center gap-10">
           <div className="flex-1 z-10">
-            <h1 className="text-5xl md:text-7xl font-bold leading-tight tracking-tight">
+            <h1 className="text-6xl md:text-[5.5rem] font-bold leading-[1.1] text-[#25324B] tracking-tight mb-4">
               Discover <br />
               more than <br />
-              <span className="text-sky-400">5000+ Jobs</span>
+              <div className="relative inline-block mt-4">
+                <span className="text-[#4640DE]">5000+ Jobs</span>
+                <img src="/images/underline.png" className="absolute -bottom-6 left-0 w-full" alt="" />
+              </div>
             </h1>
-            <div className="h-2 w-48 bg-sky-400 mt-2 mb-8 rounded-full opacity-50"></div>
-            <p className="text-text-gray text-lg max-w-md leading-relaxed">
+            
+            <p className="text-[#515B6F] text-xl mt-16 max-w-lg leading-relaxed">
               Great platform for the job seeker that searching for new career heights and passionate about startups.
             </p>
 
             {/* Search Box */}
-            <div className="mt-12 bg-white p-4 shadow-xl flex flex-col md:flex-row gap-4 border border-border">
-              <div className="flex-1 flex items-center gap-3 px-2 border-b md:border-b-0 md:border-r border-border pb-2 md:pb-0">
-                <svg className="w-6 h-6 text-text-gray" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path></svg>
+            <div className="mt-12 bg-white p-3 shadow-2xl flex flex-col md:flex-row gap-0 max-w-4xl">
+              <div className="flex-[1.2] flex items-center gap-4 px-4 py-4 md:border-r border-border">
+                <svg className="w-7 h-7 text-[#25324B]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2.5" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path></svg>
                 <input 
                   type="text" 
                   placeholder="Job title or keyword" 
-                  className="w-full outline-none text-text-dark font-medium"
+                  className="w-full h-full outline-none text-[#25324B] font-medium placeholder:text-gray-300"
                   value={search}
                   onChange={(e) => setSearch(e.target.value)}
                 />
               </div>
-              <div className="flex-1 flex items-center gap-3 px-2 border-b md:border-b-0 md:border-r border-border pb-2 md:pb-0">
-                <svg className="w-6 h-6 text-text-gray" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"></path><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"></path></svg>
-                <input 
-                  type="text" 
-                  placeholder="Florence, Italy" 
-                  className="w-full outline-none text-text-dark font-medium"
-                  value={location}
-                  onChange={(e) => setLocation(e.target.value)}
-                />
+              <div className="flex-1 flex items-center gap-4 px-4 py-4">
+                <svg className="w-7 h-7 text-[#25324B]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2.5" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"></path><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2.5" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"></path></svg>
+                <div className="flex-1 flex items-center justify-between">
+                  <input 
+                    type="text" 
+                    placeholder="Florence, Italy" 
+                    className="w-full h-full outline-none text-[#25324B] font-medium placeholder:text-gray-300"
+                    value={location}
+                    onChange={(e) => setLocation(e.target.value)}
+                  />
+                  <svg className="w-5 h-5 text-[#25324B]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M19 9l-7 7-7-7"></path></svg>
+                </div>
               </div>
-              <button className="bg-primary text-white font-bold px-10 py-4 transition-all hover:bg-opacity-90">
+              <button className="bg-[#4640DE] text-white font-bold px-12 py-5 transition-all hover:opacity-95 whitespace-nowrap">
                 Search my job
               </button>
             </div>
             
-            <p className="mt-8 text-text-gray font-medium">
-              Popular : <span className="text-text-dark">UI Designer, UX Researcher, Android, Admin</span>
+            <p className="mt-8 text-[#515B6F] font-medium text-lg">
+              Popular : <span className="text-[#25324B] font-bold">UI Designer, UX Researcher, Android, Admin</span>
             </p>
           </div>
 
-          <div className="flex-1 hidden md:block">
-             {/* Decorative image or illustration would go here */}
-             <div className="relative w-full aspect-square bg-blue-100 rounded-2xl overflow-hidden shadow-2xl">
-                <div className="absolute inset-0 bg-gradient-to-br from-primary/10 to-transparent"></div>
-                {/* Placeholder for the guy in the picture */}
-                <div className="absolute inset-0 flex items-center justify-center text-primary/20 text-9xl font-black">
-                  QH
-                </div>
-             </div>
+          <div className="flex-1 hidden lg:block relative">
+             <img src="/images/hero-guy.png" alt="" className="w-full h-auto relative z-10" />
+             <img src="/images/hero-bg.png" alt="" className="absolute -top-10 -right-20 w-full opacity-30 pointer-events-none" />
           </div>
         </div>
-        
-        {/* Background Elements */}
-        <div className="absolute top-0 right-0 w-1/3 h-full bg-primary/5 -skew-x-12 transform translate-x-1/2"></div>
       </section>
 
-      {/* Categories / Filter Section */}
-      <section className="py-20 px-6 md:px-12 max-w-6xl mx-auto">
-        <div className="flex flex-col md:flex-row justify-between items-end mb-12 gap-6">
-          <div>
-            <h2 className="text-4xl font-bold text-text-dark leading-tight">
-              Explore by <span className="text-primary font-black">category</span>
-            </h2>
-          </div>
-          <div className="flex flex-wrap gap-2">
-            {categories.map(cat => (
-              <button 
-                key={cat}
-                onClick={() => setCategory(cat)}
-                className={`px-5 py-2 rounded-full font-bold transition-all border ${
-                  category === cat 
-                    ? 'bg-primary text-white border-primary' 
-                    : 'bg-white text-text-gray border-border hover:border-primary'
-                }`}
-              >
-                {cat}
-              </button>
+      {/* Companies Section */}
+      <section className="py-12 px-6 md:px-32">
+        <div className="max-w-[1400px] mx-auto">
+          <p className="text-[#515B6F] font-medium mb-10">Companies we helped grow</p>
+          <div className="flex flex-wrap items-center justify-between gap-12 opacity-40 grayscale">
+            {companies.map(c => (
+              <span key={c} className="text-4xl font-black text-gray-500 tracking-tighter">{c}</span>
             ))}
           </div>
         </div>
+      </section>
 
-        {/* Job Listings */}
-        <div className="grid grid-cols-1 gap-6">
-          <h3 className="text-2xl font-bold text-text-dark mb-4 border-b border-border pb-4">
-            Latest <span className="text-primary">jobs open</span>
-          </h3>
-          
-          {loading ? (
-            <div className="text-center py-20">
-              <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-primary mx-auto"></div>
-              <p className="mt-4 text-text-gray font-bold">Finding the best roles for you...</p>
-            </div>
-          ) : filteredJobs.length > 0 ? (
-            filteredJobs.map(job => (
-              <JobCard key={job._id} job={job} />
-            ))
-          ) : (
-            <div className="text-center py-20 border border-dashed border-border rounded-lg">
-              <p className="text-text-gray text-lg font-bold">No jobs found matching your criteria.</p>
-              <button 
-                onClick={() => {setSearch(''); setLocation(''); setCategory('All');}}
-                className="mt-4 text-primary font-bold hover:underline"
+      {/* Explore Section */}
+      <section className="py-24 px-6 md:px-32 bg-white">
+        <div className="max-w-[1400px] mx-auto">
+          <div className="flex justify-between items-end mb-16">
+            <h2 className="text-5xl font-bold text-[#25324B]">
+              Explore by <span className="text-[#4640DE]">category</span>
+            </h2>
+            <Link href="#" className="text-[#4640DE] font-bold flex items-center gap-2 group">
+              Show all jobs
+              <svg className="w-5 h-5 transition-transform group-hover:translate-x-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2.5" d="M14 5l7 7m0 0l-7 7m7-7H3"></path></svg>
+            </Link>
+          </div>
+
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
+            {categories.map(cat => (
+              <div 
+                key={cat.title} 
+                className={`p-10 border border-[#D6DDEB] rounded-sm transition-all cursor-pointer group hover:bg-[#4640DE] hover:border-[#4640DE] ${cat.active ? 'bg-[#4640DE] border-[#4640DE]' : 'bg-white'}`}
               >
-                Clear all filters
-              </button>
-            </div>
-          )}
+                <div className={`text-4xl mb-8 group-hover:bg-white/20 w-16 h-16 flex items-center justify-center rounded-sm ${cat.active ? 'bg-white/20' : 'bg-[#F8F8FD]'}`}>
+                  {cat.icon}
+                </div>
+                <h3 className={`text-2xl font-bold mb-3 ${cat.active ? 'text-white' : 'text-[#25324B] group-hover:text-white'}`}>{cat.title}</h3>
+                <div className="flex items-center justify-between">
+                  <p className={`font-medium ${cat.active ? 'text-white/80' : 'text-[#515B6F] group-hover:text-white/80'}`}>
+                    {cat.count} jobs available
+                  </p>
+                  <svg className={`w-5 h-5 ${cat.active ? 'text-white' : 'text-[#25324B] group-hover:text-white'}`} fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2.5" d="M14 5l7 7m0 0l-7 7m7-7H3"></path></svg>
+                </div>
+              </div>
+            ))}
+          </div>
         </div>
       </section>
 
-      {/* Footer Placeholder */}
-      <footer className="bg-gray-900 text-white py-20 px-6 md:px-12">
-        <div className="max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-4 gap-12">
-          <div className="col-span-1 md:col-span-2">
-            <div className="flex items-center gap-2 mb-6">
-              <div className="w-8 h-8 bg-primary rounded-full flex items-center justify-center text-white font-bold">Q</div>
-              <span className="text-2xl font-bold">QuickHire</span>
-            </div>
-            <p className="text-gray-400 max-w-sm mb-8">
-              Great platform for the job seeker that searching for new career heights and passionate about startups.
-            </p>
+      {/* Latest Jobs Section */}
+      <section className="py-24 px-6 md:px-32 bg-[#F8F8FD]">
+        <div className="max-w-[1400px] mx-auto">
+          <div className="flex justify-between items-end mb-16">
+            <h2 className="text-5xl font-bold text-[#25324B]">
+              Latest <span className="text-[#4640DE]">jobs open</span>
+            </h2>
+            <Link href="#" className="text-[#4640DE] font-bold flex items-center gap-2 group">
+              Show all jobs
+              <svg className="w-5 h-5 transition-transform group-hover:translate-x-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2.5" d="M14 5l7 7m0 0l-7 7m7-7H3"></path></svg>
+            </Link>
           </div>
-          <div>
-            <h4 className="font-bold text-xl mb-6">About</h4>
-            <ul className="space-y-4 text-gray-400">
-              <li><Link href="#" className="hover:text-white transition-colors">Companies</Link></li>
-              <li><Link href="#" className="hover:text-white transition-colors">Pricing</Link></li>
-              <li><Link href="#" className="hover:text-white transition-colors">Terms</Link></li>
-              <li><Link href="#" className="hover:text-white transition-colors">Advice</Link></li>
-            </ul>
-          </div>
-          <div>
-            <h4 className="font-bold text-xl mb-6">Resources</h4>
-            <ul className="space-y-4 text-gray-400">
-              <li><Link href="#" className="hover:text-white transition-colors">Help Docs</Link></li>
-              <li><Link href="#" className="hover:text-white transition-colors">Guide</Link></li>
-              <li><Link href="#" className="hover:text-white transition-colors">Updates</Link></li>
-              <li><Link href="#" className="hover:text-white transition-colors">Contact Us</Link></li>
-            </ul>
+
+          <div className="grid grid-cols-1 gap-6">
+            {loading ? (
+              <div className="text-center py-20 bg-white border border-border">
+                <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-[#4640DE] mx-auto"></div>
+                <p className="mt-4 text-[#515B6F] font-bold">Finding the best roles for you...</p>
+              </div>
+            ) : filteredJobs.length > 0 ? (
+              filteredJobs.map(job => (
+                <JobCard key={job._id} job={job} />
+              ))
+            ) : (
+              <div className="text-center py-20 bg-white border border-dashed border-border rounded-lg">
+                <p className="text-[#515B6F] text-lg font-bold">No jobs found matching your criteria.</p>
+                <button 
+                  onClick={() => {setSearch(''); setLocation('');}}
+                  className="mt-4 text-[#4640DE] font-bold hover:underline"
+                >
+                  Clear all filters
+                </button>
+              </div>
+            )}
           </div>
         </div>
-        <div className="max-w-6xl mx-auto mt-20 pt-8 border-t border-gray-800 text-gray-500 text-sm flex flex-col md:flex-row justify-between gap-4">
-          <p>2026 QuickHire. All rights reserved.</p>
-          <div className="flex gap-6">
-            <Link href="#" className="hover:text-white">Privacy Policy</Link>
-            <Link href="#" className="hover:text-white">Terms of Service</Link>
+      </section>
+
+      {/* Footer */}
+      <footer className="bg-[#202430] text-white pt-24 pb-12 px-6 md:px-32">
+        <div className="max-w-[1400px] mx-auto">
+          <div className="grid grid-cols-1 md:grid-cols-4 gap-20 mb-20 border-b border-gray-700 pb-20">
+            <div className="col-span-1 md:col-span-1">
+              <div className="flex items-center gap-3 mb-8">
+                <img src="/images/logo.png" alt="QuickHire" className="h-8 w-auto invert" />
+                <span className="text-3xl font-black">QuickHire</span>
+              </div>
+              <p className="text-gray-400 text-lg leading-relaxed mb-8">
+                Great platform for the job seeker that searching for new career heights and passionate about startups.
+              </p>
+            </div>
+            
+            <div>
+              <h4 className="font-bold text-xl mb-8">About</h4>
+              <ul className="space-y-4 text-gray-400 text-lg">
+                <li><Link href="#" className="hover:text-white transition-colors">Companies</Link></li>
+                <li><Link href="#" className="hover:text-white transition-colors">Pricing</Link></li>
+                <li><Link href="#" className="hover:text-white transition-colors">Terms</Link></li>
+                <li><Link href="#" className="hover:text-white transition-colors">Advice</Link></li>
+              </ul>
+            </div>
+            
+            <div>
+              <h4 className="font-bold text-xl mb-8">Resources</h4>
+              <ul className="space-y-4 text-gray-400 text-lg">
+                <li><Link href="#" className="hover:text-white transition-colors">Help Docs</Link></li>
+                <li><Link href="#" className="hover:text-white transition-colors">Guide</Link></li>
+                <li><Link href="#" className="hover:text-white transition-colors">Updates</Link></li>
+                <li><Link href="#" className="hover:text-white transition-colors">Contact Us</Link></li>
+              </ul>
+            </div>
+
+            <div>
+              <h4 className="font-bold text-xl mb-8">Get job notifications</h4>
+              <p className="text-gray-400 text-lg mb-8">The latest job news, articles, sent to your inbox weekly.</p>
+              <div className="flex gap-2">
+                <input type="text" placeholder="Email Address" className="bg-white/5 border border-gray-700 p-4 flex-1 outline-none focus:border-[#4640DE]" />
+                <button className="bg-[#4640DE] px-6 py-4 font-bold">Subscribe</button>
+              </div>
+            </div>
+          </div>
+          
+          <div className="flex flex-col md:flex-row justify-between gap-8 items-center text-gray-500 font-medium">
+            <p>2026 @ QuickHire. All rights reserved.</p>
+            <div className="flex gap-8">
+              {/* Icons would go here */}
+              <div className="w-10 h-10 bg-white/10 rounded-full"></div>
+              <div className="w-10 h-10 bg-white/10 rounded-full"></div>
+              <div className="w-10 h-10 bg-white/10 rounded-full"></div>
+              <div className="w-10 h-10 bg-white/10 rounded-full"></div>
+              <div className="w-10 h-10 bg-white/10 rounded-full"></div>
+            </div>
           </div>
         </div>
       </footer>
