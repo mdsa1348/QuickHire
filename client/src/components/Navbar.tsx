@@ -2,7 +2,7 @@ import Link from 'next/link';
 
 const Navbar = () => {
   return (
-    <nav className="border-b border-border py-5 px-6 md:px-32 flex items-center justify-between bg-[#F8F8FD]">
+    <nav className="absolute w-full top-0 py-6 px-6 md:px-32 flex items-center justify-between bg-transparent z-50">
       <div className="flex items-center gap-10">
         <Link href="/" className="flex items-center gap-2">
           <img src="/images/logo.png" alt="QuickHire" className="h-8 w-auto" />

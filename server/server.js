@@ -20,9 +20,9 @@ app.get('/', (req, res) => {
 
 // MongoDB Connection (Placeholder for now)
 const mongoURI = process.env.MONGODB_URI || 'mongodb://localhost:27017/quickhire';
-// mongoose.connect(mongoURI)
-//   .then(() => console.log('MongoDB Connected'))
-//   .catch(err => console.log(err));
+mongoose.connect(mongoURI)
+  .then(() => console.log('MongoDB Connected'))
+  .catch(err => console.log(err));
 
 app.listen(PORT, () => {
   console.log(`Server is running on port: ${PORT}`);
