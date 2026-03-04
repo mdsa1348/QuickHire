@@ -6,6 +6,9 @@ import JobCard from '@/components/JobCard';
 import FeaturedJobCard from '@/components/FeaturedJobCard';
 import { Job } from '@/types';
 
+const API_BASE = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:5000';
+
+
 interface FeaturedJob {
   _id: string;
   title: string;
@@ -31,7 +34,7 @@ export default function Home() {
 
   const fetchJobs = async () => {
     try {
-      const res = await fetch('http://localhost:5000/api/jobs');
+      const res = await fetch(`${API_BASE}/api/jobs`);
       const data = await res.json();
       const backendJobs = Array.isArray(data) ? data : [];
       if (backendJobs.length === 0) {
@@ -49,7 +52,7 @@ export default function Home() {
 
   const fetchFeaturedJobs = async () => {
     try {
-      const res = await fetch('http://localhost:5000/api/featured-jobs');
+      const res = await fetch(`${API_BASE}/api/featured-jobs`);
       const data = await res.json();
       const backendFeatured = Array.isArray(data) ? data : [];
       if (backendFeatured.length > 0) {
