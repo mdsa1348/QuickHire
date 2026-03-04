@@ -10,7 +10,7 @@ const jobSchema = new mongoose.Schema({
   createdAt:   { type: Date, default: Date.now },
 });
 
-const Job = mongoose.model('Job', jobSchema);
+const Job = mongoose.models.Job || mongoose.model('Job', jobSchema);
 
 // ── FeaturedJob (Featured Jobs section) ───────────────────────────────────
 const featuredJobSchema = new mongoose.Schema({
@@ -23,7 +23,7 @@ const featuredJobSchema = new mongoose.Schema({
   createdAt:   { type: Date, default: Date.now },
 });
 
-const FeaturedJob = mongoose.model('FeaturedJob', featuredJobSchema);
+const FeaturedJob = mongoose.models.FeaturedJob || mongoose.model('FeaturedJob', featuredJobSchema);
 
 // ── Application ────────────────────────────────────────────────────────────
 const applicationSchema = new mongoose.Schema({
@@ -35,6 +35,6 @@ const applicationSchema = new mongoose.Schema({
   createdAt:   { type: Date, default: Date.now },
 });
 
-const Application = mongoose.model('Application', applicationSchema);
+const Application = mongoose.models.Application || mongoose.model('Application', applicationSchema);
 
 module.exports = { Job, FeaturedJob, Application };
