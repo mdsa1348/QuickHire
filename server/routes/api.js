@@ -52,6 +52,25 @@ router.delete('/jobs/:id', async (req, res) => {
   }
 });
 
+// PUT /api/jobs/:id – Update a job (Admin)
+router.put('/jobs/:id', async (req, res) => {
+  const { title, company, location, category, description } = req.body;
+  if (!title || !company || !location || !category || !description) {
+    return res.status(400).json({ message: 'All fields are required' });
+  }
+  try {
+    const job = await Job.findByIdAndUpdate(
+      req.params.id,
+      { title, company, location, category, description },
+      { new: true, runValidators: true }
+    );
+    if (!job) return res.status(404).json({ message: 'Job not found' });
+    res.json(job);
+  } catch (err) {
+    res.status(400).json({ message: err.message });
+  }
+});
+
 // ── Featured Jobs ─────────────────────────────────────────────────────────
 
 // GET /api/featured-jobs – List all featured jobs

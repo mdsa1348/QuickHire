@@ -17,10 +17,11 @@ A full-stack mini job board application built with **Next.js** (frontend) and **
 
 ## 📸 Features
 
-- **Job Listings Page** — Browse all jobs with real-time search by title/company and filter by location or category
-- **Job Detail Page** — Full job description with an inline "Apply Now" form
+- **Home Page** — Hero section, category explorer, featured jobs carousel, latest jobs grid with real-time search & filter
+- **Job Listings Page (`/jobs`)** — Dedicated browse-all-jobs page with sidebar filters (Job Type, Category, Experience Level), active filter chips, and loading skeletons
+- **Job Detail Page (`/jobs/:id`)** — Full job description with an inline "Apply Now" form
 - **Application Form** — Collects name, email, resume URL, and cover note with full validation
-- **Admin Dashboard** — Post new job listings, delete existing ones, and view all submitted applications
+- **Admin Dashboard (`/admin`)** — Post new job listings, delete existing ones, and view all submitted applications in two tabs
 - **Responsive UI** — Pixel-faithful implementation of the Figma design, fully mobile-responsive
 - **MongoDB Backend** — All job listings and applications are persisted in MongoDB Atlas
 
@@ -30,27 +31,34 @@ A full-stack mini job board application built with **Next.js** (frontend) and **
 
 ```
 QuickHire_qtec_task/
-├── client/                     # Next.js frontend
+├── client/                         # Next.js frontend
+│   ├── .env.local                  # ← create from .env.local.example
+│   ├── .env.local.example          # Environment variable template
 │   └── src/
 │       ├── app/
-│       │   ├── page.tsx         # Home: job listings + search + categories
-│       │   ├── jobs/[id]/       # Job detail + Apply Now form
-│       │   └── admin/           # Admin dashboard
+│       │   ├── page.tsx            # Home: hero + categories + featured + latest jobs
+│       │   ├── jobs/
+│       │   │   ├── page.tsx        # Browse all jobs with sidebar filters  ← NEW
+│       │   │   └── [id]/page.tsx   # Job detail + Apply Now form
+│       │   └── admin/page.tsx      # Admin dashboard (post/delete jobs, view apps)
 │       ├── components/
 │       │   ├── Navbar.tsx
-│       │   ├── JobCard.tsx      # Latest Jobs card
-│       │   └── FeaturedJobCard.tsx
+│       │   ├── JobCard.tsx         # Reusable latest-jobs card
+│       │   └── FeaturedJobCard.tsx # Reusable featured-jobs card
+│       ├── lib/
+│       │   └── api.ts              # Centralized typed API utility  ← NEW
 │       └── types/
-│           └── index.ts         # Shared TypeScript interfaces
+│           └── index.ts            # Shared TypeScript interfaces
 │
-└── server/                     # Node.js/Express backend
+└── server/                         # Node.js/Express backend
     ├── models/
-    │   └── index.js             # Mongoose schemas: Job, FeaturedJob, Application
+    │   └── index.js                # Mongoose schemas: Job, FeaturedJob, Application
     ├── routes/
-    │   └── api.js               # All REST API routes
-    ├── seed.js                  # Database seeder
-    ├── server.js                # Express app entry point
-    └── .env                     # Environment variables (not committed)
+    │   └── api.js                  # All REST API routes
+    ├── seed.js                     # Database seeder
+    ├── server.js                   # Express app entry point
+    ├── .env                        # ← create from .env.example  (not committed)
+    └── .env.example                # Environment variable template
 ```
 
 ---
@@ -81,7 +89,12 @@ cd server
 npm install
 ```
 
-Create a `.env` file in the `server/` directory:
+Create a `.env` file from the template:
+
+```bash
+cp .env.example .env
+# Then edit .env and fill in your MONGODB_URI
+```
 
 ```env
 MONGODB_URI=mongodb+srv://<user>:<password>@cluster0.xxxxx.mongodb.net/quickhire?appName=Cluster0
@@ -109,6 +122,21 @@ The API will be running at `http://localhost:5000`
 ```bash
 cd client
 npm install
+```
+
+Create a `.env.local` file from the template:
+
+```bash
+cp .env.local.example .env.local
+```
+
+```env
+NEXT_PUBLIC_API_URL=http://localhost:5000
+```
+
+Start the dev server:
+
+```bash
 npm run dev
 ```
 
@@ -195,10 +223,18 @@ All API endpoints validate:
 
 ## 🔑 Environment Variables
 
-| Variable | Description | Example |
+### Backend (`server/.env`)
+
+| Variable | Description | Default |
 |---|---|---|
-| `MONGODB_URI` | MongoDB connection string | `mongodb+srv://...` |
-| `PORT` | Server port (default: 5000) | `5000` |
+| `MONGODB_URI` | MongoDB connection string | `mongodb://localhost:27017/quickhire` |
+| `PORT` | Server port | `5000` |
+
+### Frontend (`client/.env.local`)
+
+| Variable | Description | Default |
+|---|---|---|
+| `NEXT_PUBLIC_API_URL` | Backend API base URL | `http://localhost:5000` |
 
 ---
 
@@ -206,10 +242,10 @@ All API endpoints validate:
 
 | Layer | Technology |
 |---|---|
-| Frontend | Next.js 15, TypeScript, Tailwind CSS |
+| Frontend | Next.js 16, TypeScript, Tailwind CSS v4 |
 | Backend | Node.js, Express.js |
 | Database | MongoDB Atlas (Mongoose ODM) |
-| UI Design | Figma (QSL QuickHire template) |
+| UI Design | Based on Figma: QSL QuickHire template |
 
 ---
 
@@ -234,5 +270,6 @@ node seed.js
 | Route | Description |
 |---|---|
 | `/` | Home page — Hero, Categories, Featured Jobs, Latest Jobs, Footer |
+| `/jobs` | Browse all jobs with sidebar filters (Type, Category, Experience) |
 | `/jobs/:id` | Job detail page with Apply Now form |
 | `/admin` | Admin dashboard — post jobs, delete jobs, view applications |

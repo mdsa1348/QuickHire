@@ -2,6 +2,7 @@ import Link from 'next/link';
 
 interface FeaturedJobCardProps {
   job: {
+    _id?: string;
     title: string;
     company: string;
     location: string;
@@ -27,8 +28,15 @@ const FeaturedJobCard = ({ job }: FeaturedJobCardProps) => {
     }
   };
 
+  // Build the search link: search by job title on the /jobs page
+  const searchQuery = encodeURIComponent(job.title);
+  const href = `/jobs?search=${searchQuery}`;
+
   return (
-    <div className="border border-[#D6DDEB] p-8 bg-white hover:border-[#4640DE] transition-all flex flex-col group h-full hover:shadow-2xl relative">
+    <Link
+      href={href}
+      className="border border-[#D6DDEB] p-8 bg-white hover:border-[#4640DE] transition-all flex flex-col group h-full hover:shadow-2xl relative"
+    >
       <div className="flex justify-between items-start mb-10">
         <div className={`w-14 h-14 flex items-center justify-center font-black text-2xl shadow-lg transform group-hover:scale-110 transition-transform ${getBrandStyles(job.company)}`}>
           {job.logo}
@@ -67,7 +75,7 @@ const FeaturedJobCard = ({ job }: FeaturedJobCardProps) => {
           </span>
         ))}
       </div>
-    </div>
+    </Link>
   );
 };
 
