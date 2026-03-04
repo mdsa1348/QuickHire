@@ -18,12 +18,25 @@ app.get('/', (req, res) => {
   res.send('QuickHire API is running...');
 });
 
-// MongoDB Connection (Placeholder for now)
+// MongoDB Connection
 const mongoURI = process.env.MONGODB_URI || 'mongodb://localhost:27017/quickhire';
-mongoose.connect(mongoURI)
-  .then(() => console.log('MongoDB Connected'))
-  .catch(err => console.log(err));
 
-app.listen(PORT, () => {
-  console.log(`Server is running on port: ${PORT}`);
-});
+let isConnected = false;
+const connectDB = async () => {
+  if (isConnected) return;
+  await mongoose.connect(mongoURI);
+  isConnected = true;
+  console.log('MongoDB Connected');
+};
+
+connectDB().catch(err => console.log('MongoDB error:', err));
+
+// Local dev: start the server normally
+// Vercel: export the app as a serverless function
+if (process.env.VERCEL !== '1') {
+  app.listen(PORT, () => {
+    console.log(`Server is running on port: ${PORT}`);
+  });
+}
+
+module.exports = app;
