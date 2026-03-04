@@ -32,7 +32,7 @@ const JobCard = ({ job }: JobCardProps) => {
       
       <div className="flex-1 w-full">
         <h3 className="text-xl md:text-2xl font-black text-[#25324B] mb-1 md:mb-2 leading-tight group-hover:text-[#4640DE] transition-colors">{job.title}</h3>
-        <div className="flex items-center gap-2 md:gap-3 text-[#515B6F] text-sm md:text-lg font-bold opacity-70 mb-4 md:mb-5">
+        <div className="flex items-center gap-2 md:gap-3 text-[#515B6F] text-sm md:text-lg  opacity-70 mb-4 md:mb-5">
            <span>{job.company}</span>
            <span className="w-1 md:w-1.5 h-1 md:h-1.5 bg-[#4640DE] rounded-full opacity-30"></span>
            <span>{job.location}</span>

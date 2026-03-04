@@ -38,25 +38,25 @@ const FeaturedJobCard = ({ job }: FeaturedJobCardProps) => {
         </span>
       </div>
       
-      <h3 className="text-2xl font-black text-[#25324B] mb-2 group-hover:text-[#4640DE] transition-colors leading-tight">
+      <h3 className="text-xl md:text-2xl font-black text-[#25324B] mb-2 group-hover:text-[#4640DE] transition-colors leading-tight">
         {job.title}
       </h3>
       
-      <div className="flex items-center gap-3 text-[#515B6F] text-base mb-6 font-bold opacity-70">
+      <div className="flex items-center gap-2 md:gap-3 text-[#515B6F] text-sm md:text-base mb-4 md:mb-6 font-bold opacity-70">
         <span>{job.company}</span>
-        <span className="w-1.5 h-1.5 bg-[#4640DE] rounded-full opacity-30"></span>
+        <span className="w-1 md:w-1.5 h-1 md:h-1.5 bg-[#4640DE] rounded-full opacity-30"></span>
         <span>{job.location}</span>
       </div>
       
-      <p className="text-[#515B6F] text-lg mb-8 line-clamp-2 leading-relaxed font-medium">
+      <p className="text-[#515B6F] text-base md:text-lg mb-8 line-clamp-2 leading-relaxed font-medium">
         {job.description}
       </p>
       
-      <div className="flex flex-wrap gap-2.5 mt-auto">
+      <div className="flex flex-wrap gap-2 mt-auto">
         {job.categories.map((cat) => (
           <span 
             key={cat}
-            className={`px-4 py-1.5 rounded-full text-xs font-black tracking-wider uppercase ${
+            className={`px-3 md:px-4 py-1 md:py-1.5 rounded-full text-[10px] md:text-xs font-black tracking-wider uppercase ${
               cat === 'Marketing' ? 'bg-[#FFB836]/10 text-[#FFB836]' : 
               cat === 'Design' ? 'bg-[#56CDAD]/10 text-[#56CDAD]' :
               cat === 'Business' ? 'bg-[#4640DE]/10 text-[#4640DE]' :
