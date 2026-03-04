@@ -164,45 +164,45 @@ export default function Home() {
 
         <div className="max-w-[1440px] mx-auto w-full flex flex-col lg:flex-row items-center relative z-10">
           <div className="flex-1 lg:max-w-[65%] pt-10 lg:pt-0">
-            <h1 className="text-5xl md:text-[3.5rem] font-black leading-[1.05] text-[#25324B] tracking-tight mb-2">
-              Discover <br />
+            <h1 className="text-[2.8rem] md:text-[3.5rem] font-black leading-[1.1] text-[#25324B] tracking-tight mb-2">
+              Discover <br className="hidden md:block" />
               more than <br />
-              <div className="relative inline-block">
+              <div className="relative inline-block mt-2 md:mt-0">
                 <span className="text-[#26A4FF]">5000+ Jobs</span>
-                <img src="/images/underline.png" className="absolute -bottom-10 left-0 w-[110%] h-auto max-w-none" alt="" />
+                <img src="/images/underline.png" className="absolute -bottom-6 md:-bottom-10 left-0 w-[110%] h-auto max-w-none" alt="" />
               </div>
             </h1>
             
-            <p className="text-[#515B6F] text-lg md:text-xl mt-12 max-w-lg leading-relaxed font-medium opacity-90">
+            <p className="text-[#515B6F] text-lg md:text-xl mt-10 md:mt-12 max-w-lg leading-relaxed font-medium opacity-90">
               Great platform for the job seeker that searching for new career heights and passionate about startups.
             </p>
 
             {/* High-fidelity Search Box */}
-            <div className="mt-14 bg-white p-4 shadow-[0_40px_80px_-20px_rgba(11,21,41,0.15)] flex flex-col md:flex-row gap-0 w-full lg:w-[65vw] max-w-[1300px] border border-[#E9E9E9] relative z-50">
-              <div className="flex-[1.5] flex items-center gap-5 px-6 py-6 md:border-r border-[#E9E9E9]">
-                <svg className="w-8 h-8 text-[#25324B]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2.5" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path></svg>
+            <div className="mt-14 bg-white p-2 md:p-4 shadow-[0_40px_80px_-20px_rgba(11,21,41,0.15)] flex flex-col md:flex-row gap-0 w-full lg:w-[65vw] max-w-[1300px] border border-[#E9E9E9] relative z-50">
+              <div className="flex-[1.5] flex items-center gap-4 px-4 py-4 md:px-6 md:py-6 border-b md:border-b-0 md:border-r border-[#E9E9E9]">
+                <svg className="w-6 h-6 md:w-8 md:h-8 text-[#25324B]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2.5" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path></svg>
                 <input 
                   type="text" 
                   placeholder="Job title or keyword" 
-                  className="w-full outline-none text-[#25324B] font-medium text-lg placeholder:text-[#CED4DE] bg-transparent"
+                  className="w-full outline-none text-[#25324B] font-medium text-base md:text-lg placeholder:text-[#CED4DE] bg-transparent"
                   value={search}
                   onChange={(e) => setSearch(e.target.value)}
                 />
               </div>
-              <div className="flex-1 flex items-center gap-5 px-6 py-6">
-                <svg className="w-8 h-8 text-[#25324B]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2.5" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"></path><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2.5" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"></path></svg>
+              <div className="flex-1 flex items-center gap-4 px-4 py-4 md:px-6 md:py-6 border-b md:border-b-0 border-[#E9E9E9]">
+                <svg className="w-6 h-6 md:w-8 md:h-8 text-[#25324B]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2.5" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"></path><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2.5" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"></path></svg>
                 <div className="flex-1 flex items-center justify-between">
                   <input 
                     type="text" 
                     placeholder="Florence, Italy" 
-                    className="w-full outline-none text-[#25324B] font-medium text-lg placeholder:text-[#CED4DE] bg-transparent"
+                    className="w-full outline-none text-[#25324B] font-medium text-base md:text-lg placeholder:text-[#CED4DE] bg-transparent"
                     value={location}
                     onChange={(e) => setLocation(e.target.value)}
                   />
                   <svg className="w-5 h-5 text-[#25324B]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2.5" d="M19 9l-7 7-7-7"></path></svg>
                 </div>
               </div>
-              <button className="bg-[#4640DE] text-white font-bold px-14 py-6 transition-all hover:bg-[#342FBF] whitespace-nowrap text-lg">
+              <button className="bg-[#4640DE] text-white font-bold px-8 md:px-14 py-5 md:py-6 transition-all hover:bg-[#342FBF] whitespace-nowrap text-base md:text-lg">
                 Search my job
               </button>
             </div>
@@ -223,15 +223,15 @@ export default function Home() {
       </section>
 
       {/* Companies Section */}
-      <section className="py-24 md:py-10 px-4 md:px-12 bg-white relative z-30">
+      <section className="py-16 md:py-10 px-6 md: px-12 bg-white relative z-30">
         <div className="max-w-[1440px] mx-auto">
-          <p className="text-[#515B6F] mb-10 md:pl-20 text-xl opacity-50">Companies we helped grow</p>
-          <div className="md:px-16 flex flex-wrap items-center justify-between gap-8 md:gap-6 grayscale">
-            <img src="/images/Screenshot 2026-03-04 172528.png" alt="Company 1" className="h-20 w-auto object-contain" />
-            <img src="/images/Screenshot 2026-03-04 172534.png" alt="Company 2" className="h-20  w-auto object-contain" />
-            <img src="/images/Screenshot 2026-03-04 172540.png" alt="Company 3" className="h-20  w-auto object-contain" />
-            <img src="/images/Screenshot 2026-03-04 172547.png" alt="Company 4" className="h-20  w-auto object-contain" />
-            <img src="/images/Screenshot 2026-03-04 172556.png" alt="Company 5" className="h-20  w-auto object-contain" />
+          <p className="text-[#515B6F] mb-12 md:mb-10 md:pl-20 text-lg md:text-xl opacity-50 text-center md:text-left">Companies we helped grow</p>
+          <div className="md:px-16 grid grid-cols-2 lg:flex items-center justify-between gap-y-12 gap-x-8 lg:gap-6 grayscale">
+            <div className="flex justify-center"><img src="/images/Screenshot 2026-03-04 172528.png" alt="Company 1" className="h-10 md:h-20 w-auto object-contain" /></div>
+            <div className="flex justify-center"><img src="/images/Screenshot 2026-03-04 172534.png" alt="Company 2" className="h-10 md:h-20 w-auto object-contain" /></div>
+            <div className="flex justify-center"><img src="/images/Screenshot 2026-03-04 172540.png" alt="Company 3" className="h-10 md:h-20 w-auto object-contain" /></div>
+            <div className="flex justify-center"><img src="/images/Screenshot 2026-03-04 172547.png" alt="Company 4" className="h-10 md:h-20 w-auto object-contain" /></div>
+            <div className="flex justify-center col-span-2 lg:col-span-1"><img src="/images/Screenshot 2026-03-04 172556.png" alt="Company 5" className="h-10 md:h-20 w-auto object-contain" /></div>
           </div>
         </div>
       </section>
@@ -249,21 +249,25 @@ export default function Home() {
             </Link>
           </div>
 
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-10">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 md:gap-10">
             {categories.map(cat => (
               <div 
                 key={cat.title} 
-                className="p-10 border border-[#D6DDEB] bg-white rounded-none transition-all cursor-pointer group hover:bg-[#4640DE] hover:border-[#4640DE] shadow-sm hover:shadow-2xl"
+                className="p-6 md:p-10 border border-[#D6DDEB] bg-white rounded-none transition-all cursor-pointer group hover:bg-[#4640DE] hover:border-[#4640DE] shadow-sm hover:shadow-2xl flex md:flex-col items-center md:items-start gap-4 md:gap-0"
               >
-                <div className="text-4xl mb-8 group-hover:bg-white/20 w-16 h-16 flex items-center justify-center rounded-none transition-all bg-[#F8F8FD]">
+                <div className="text-2xl md:text-4xl md:mb-8 group-hover:bg-white/20 w-12 h-12 md:w-16 md:h-16 flex items-center justify-center rounded-none transition-all bg-[#F8F8FD] flex-shrink-0">
                   {cat.icon}
                 </div>
-                <h3 className="text-2xl font-black mb-3 text-[#25324B] group-hover:text-white transition-colors">{cat.title}</h3>
-                <div className="flex items-center justify-between">
-                  <p className="font-bold text-lg text-[#515B6F] group-hover:text-white opacity-70 group-hover:opacity-100 transition-all">
+                <div className="flex-1">
+                  <h3 className="text-xl md:text-2xl font-black mb-1 md:mb-3 text-[#25324B] group-hover:text-white transition-colors">{cat.title}</h3>
+                  <p className="font-bold text-base md:text-lg text-[#515B6F] group-hover:text-white opacity-70 group-hover:opacity-100 transition-all">
                     {cat.count} jobs available
                   </p>
-                  <svg className="w-5 h-5 text-[#25324B] group-hover:text-white transition-colors" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="3" d="M14 5l7 7m0 0l-7 7m7-7H3"></path></svg>
+                </div>
+                <svg className="w-5 h-5 text-[#25324B] group-hover:text-white transition-colors block md:hidden" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="3" d="M14 5l7 7m0 0l-7 7m7-7H3"></path></svg>
+                <div className="hidden md:flex items-center justify-between w-full mt-4">
+                   <div className="flex-1"></div>
+                   <svg className="w-5 h-5 text-[#25324B] group-hover:text-white transition-colors" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="3" d="M14 5l7 7m0 0l-7 7m7-7H3"></path></svg>
                 </div>
               </div>
             ))}
@@ -286,24 +290,24 @@ export default function Home() {
             style={{ clipPath: 'polygon(100% 0, 100% 100%, 0 100%)' }}
           ></div>
 
-          <div className="relative z-30 flex-1 md:pl-18 py-12 text-white text-center md:text-left transition-all">
-            <h2 className="text-5xl md:text-[3.8rem] font-bold mb-6 leading-[1.1] tracking-tight">
-              Start posting <br /> jobs today
+          <div className="relative z-30 flex-1 md:pl-18 py-12 md:py-24 text-white text-center md:text-left transition-all px-4 md:px-0">
+            <h2 className="text-[2.8rem] md:text-[3.8rem] font-bold mb-6 leading-[1.1] tracking-tight">
+              Start posting <br className="hidden md:block"/> jobs today
             </h2>
-            <p className="text-xl md:text-2xl font-medium mb-10 opacity-90">
+            <p className="text-lg md:text-2xl font-medium mb-10 opacity-90">
               Start posting jobs for only $10.
             </p>
-            <button className="bg-white text-[#4640DE] font-bold px-12 py-5 text-xl hover:bg-gray-100 transition-all shadow-xl active:scale-95">
+            <button className="bg-white text-[#4640DE] font-bold px-12 py-5 text-xl hover:bg-gray-100 transition-all shadow-xl active:scale-95 w-full md:w-auto">
               Sign Up For Free
             </button>
           </div>
 
-          <div className="relative z-10 flex-[1.4] flex justify-start items-center h-full self-end md:-ml-32">
-            <div className="w-full md:w-[90%] md:-translate-x-[-5%] ">
+          <div className="relative z-10 flex-[1.4] flex justify-start items-center h-full self-end w-full md:w-auto mt-10 md:mt-0 md:-ml-32">
+            <div className="w-full md:w-[90%] transform md:translate-x-0">
               <img 
                 src="/images/dashboard.png" 
                 alt="QuickHire Dashboard" 
-                className="w-full h-auto object-contain "
+                className="w-full h-auto object-contain pointer-events-none"
               />
             </div>
           </div>
@@ -323,9 +327,11 @@ export default function Home() {
             </Link>
           </div>
 
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
+          <div className="flex md:grid md:grid-cols-2 lg:grid-cols-4 gap-6 md:gap-8 overflow-x-auto md:overflow-hidden pb-8 md:pb-0 snap-x snap-mandatory hide-scrollbar">
             {featuredJobsData.map((job, idx) => (
-              <FeaturedJobCard key={idx} job={job} />
+              <div key={idx} className="min-w-[85vw] md:min-w-0 snap-center">
+                <FeaturedJobCard job={job} />
+              </div>
             ))}
           </div>
         </div>
@@ -416,13 +422,13 @@ export default function Home() {
             <div className="w-full md:w-[40%]">
               <h4 className="text-xl font-bold !text-white mb-8">Get job notifications</h4>
               <p className="text-[#D6DDEB] text-lg mb-8 leading-relaxed font-medium">The latest job news, articles, sent to your inbox weekly.</p>
-              <div className="flex gap-0">
+              <div className="flex flex-col md:flex-row gap-4 md:gap-0">
                 <input 
                   type="text" 
                   placeholder="Email Address" 
-                  className="bg-white p-4 flex-1 outline-none text-[#25324B] placeholder:text-[#CED4DE] text-lg font-small" 
+                  className="bg-white p-4 flex-1 outline-none text-[#25324B] placeholder:text-[#CED4DE] text-lg font-medium" 
                 />
-                <button className="bg-[#4640DE] px-8 py-4 font-bold text-lg hover:bg-[#342FBF] transition-all whitespace-nowrap">
+                <button className="bg-[#4640DE] px-10 py-4 font-bold text-lg hover:bg-[#342FBF] transition-all whitespace-nowrap w-fit md:w-auto">
                   Subscribe
                 </button>
               </div>
